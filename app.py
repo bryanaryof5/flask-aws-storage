@@ -5,12 +5,12 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
-BUCKET = "lats-image-data"
+BUCKET = os.environ.get('BUCKET_NAME')
 
 @app.route("/")
 def home():
     contents = list_files(BUCKET)
-    return render_template('index.html')
+    return render_template('index.html', bucket_name=BUCKET)
 
 @app.route("/pics")
 def list():
@@ -27,4 +27,3 @@ def upload():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
